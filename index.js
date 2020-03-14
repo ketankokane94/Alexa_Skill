@@ -22,7 +22,7 @@ const GetWhatToCookHandler = {
         return request.type === 'LaunchRequest'
             || (request.type === 'IntentRequest'
                 && request.intent.name === 'eat');
-    }, 
+    },
     handle(handlerInput) {
         const requestAttributes = handlerInput.attributesManager.getRequestAttributes();
         // gets a random fact by assigning an array to the variable
@@ -30,7 +30,16 @@ const GetWhatToCookHandler = {
         // the i18next library is set up in the Request Interceptor
         const randomFact = requestAttributes.t('FACTS');
         // concatenates a standard message with the random fact
-        const speakOutput = requestAttributes.t('GET_FACT_MESSAGE') + randomFact;
+        var thingsToMake = ['Aloo muttor',
+            'Egg burji',
+            'Dal fry',
+            'burrito',
+            'Palak paneer 1 hour to cook',
+            'Soya chunks bhaji',
+            'Vada pav',
+            'Quesadilla'];
+        const randomMonth = thingsToMake[Math.floor(Math.random() * thingsToMake.length)];
+        const speakOutput = 'Make' + randomMonth;
 
         return handlerInput.responseBuilder
             .speak(speakOutput)
