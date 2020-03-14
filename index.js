@@ -16,6 +16,31 @@ const Alexa = require('ask-sdk-core');
 const i18n = require('i18next');
 const languageStrings = require('./languageStrings');
 
+const GetWhatToCookHandler = {
+    canHandle(handlerInput) {
+        const request = handlerInput.requestEnvelope.request;
+        return request.type === 'LaunchRequest'
+            || (request.type === 'IntentRequest'
+                && request.intent.name === 'eat');
+    }, 
+    handle(handlerInput) {
+        const requestAttributes = handlerInput.attributesManager.getRequestAttributes();
+        // gets a random fact by assigning an array to the variable
+        // the random item from the array will be selected by the i18next library
+        // the i18next library is set up in the Request Interceptor
+        const randomFact = requestAttributes.t('FACTS');
+        // concatenates a standard message with the random fact
+        const speakOutput = requestAttributes.t('GET_FACT_MESSAGE') + randomFact;
+
+        return handlerInput.responseBuilder
+            .speak(speakOutput)
+            // Uncomment the next line if you want to keep the session open so you can
+            // ask for another fact without first re-opening the skill
+            // .reprompt(requestAttributes.t('HELP_REPROMPT'))
+            .withSimpleCard(requestAttributes.t('SKILL_NAME'), randomFact)
+            .getResponse();
+    },
+}
 // core functionality for fact skill
 const GetNewFactHandler = {
     canHandle(handlerInput) {
@@ -151,6 +176,7 @@ const skillBuilder = Alexa.SkillBuilders.custom();
 
 exports.handler = skillBuilder
     .addRequestHandlers(
+        GetWhatToCookHandler,
         GetNewFactHandler,
         HelpHandler,
         ExitHandler,
