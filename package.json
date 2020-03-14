@@ -1,0 +1,24 @@
+{
+  "name": "alexa_skill",
+  "version": "1.0.0",
+  "description": "alexa to tell what to cook or eat today ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ketankokane94/Alexa_Skill.git"
+  },
+  "author": "province 3304",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ketankokane94/Alexa_Skill/issues"
+  },
+  "homepage": "https://github.com/ketankokane94/Alexa_Skill#readme",
+  "dependencies": {
+    "ask-sdk-core": "^2.0.0",
+    "ask-sdk-model": "^1.0.0",
+    "i18next": "^15.0.5"
+  }
+}
